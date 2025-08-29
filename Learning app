@@ -1,0 +1,48 @@
+import random
+from datetime import datetime
+
+# Step 1: Store questions in a list of dictionaries
+questions = [
+    {"question": "What is the capital of South Africa?", 
+     "options": ["A) Pretoria", "B) Dakar", "C) Cape Town", "D) Harare"], 
+     "answer": "A"},
+     
+    {"question": "What is 21 + 7?", 
+     "options": ["A) 27", "B) 20", "C) 28", "D) 30"], 
+     "answer": "B"},
+     
+    {"question": "Which planet is known as the Red Planet?", 
+     "options": ["A) Earth", "B) Venus", "C) Mars", "D) Jupiter"], 
+     "answer": "C"},
+]
+
+# Step 2: Define a function for the quiz
+def run_quiz():
+    random.shuffle(questions)  # mix up questions
+    score = 0
+
+    print("=== Welcome to the Learning App ===")
+    name = input("Enter your name: ")
+
+    for q in questions:
+        print("\n" + q["question"])
+        for option in q["options"]:
+            print(option)
+
+        answer = input("Your answer (A/B/C/D): ").strip().upper()
+        if answer == q["answer"]:
+            print("✅ Correct!")
+            score += 1
+        else:
+            print(f"❌ Wrong. The correct answer is {q['answer']}")
+
+    print(f"\n{name}, your final score is {score}/{len(questions)}")
+
+    # Step 3: Save results to a file
+    with open("quiz_results.txt", "a") as f:
+        f.write(f"{datetime.now()} - {name} scored {score}/{len(questions)}\n")
+
+
+# Step 4: Run the app
+if __name__ == "__main__":
+    run_quiz()
